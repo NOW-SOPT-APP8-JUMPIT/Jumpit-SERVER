@@ -1,11 +1,13 @@
 package org.sopt.jumpit.position.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.sopt.jumpit.company.domain.Company;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "Positions")
 public class Position {
@@ -15,9 +17,6 @@ public class Position {
 
     @Column(name = "title")
     private String title;
-
-    @ElementCollection
-    private List<String> skills;
 
     @Column(name = "contents", columnDefinition = "json")
     private String contents;
