@@ -16,6 +16,12 @@ public class Resume {
     @JoinColumn(name = "ownerId", referencedColumnName = "id")
     private User owner;
 
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "isPrivate")
+    private boolean isPrivate;
+
     @Column(name = "modifiedAt")
     private LocalDateTime modifiedAt;
 
