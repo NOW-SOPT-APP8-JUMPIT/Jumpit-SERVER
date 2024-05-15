@@ -1,7 +1,7 @@
-package org.sopt.jumpit.common;
+package org.sopt.jumpit.global.common;
 
-import org.sopt.jumpit.common.dto.ErrorResponse;
-import org.sopt.jumpit.exception.NotFoundException;
+import org.sopt.jumpit.global.common.dto.ErrorResponse;
+import org.sopt.jumpit.global.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

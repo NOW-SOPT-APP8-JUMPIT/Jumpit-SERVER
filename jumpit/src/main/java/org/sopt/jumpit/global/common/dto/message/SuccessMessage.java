@@ -1,4 +1,4 @@
-package org.sopt.jumpit.common.dto.message;
+package org.sopt.jumpit.global.common.dto.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
