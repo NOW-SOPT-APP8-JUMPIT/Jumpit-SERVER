@@ -15,6 +15,9 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "number")
+    private int number;
+
     @Column(name = "modifiedAt")
     private LocalDateTime modifiedAt;
 
