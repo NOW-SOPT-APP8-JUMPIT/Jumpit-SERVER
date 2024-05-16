@@ -1,4 +1,4 @@
-package org.sopt.jumpit.common.dto;
+package org.sopt.jumpit.global.common.dto;
 
 import org.springframework.http.HttpStatus;
 

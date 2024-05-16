@@ -1,13 +1,13 @@
-package org.sopt.jumpit.category.domain;
-
+package org.sopt.jumpit.skill.domain;
 
 import jakarta.persistence.*;
+import org.sopt.jumpit.position.domain.Position;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Categories")
-public class Category {
+@Table(name = "Skills")
+public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,8 +15,12 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "number")
-    private int number;
+    @Column(name = "image")
+    private String image;
+
+    @ManyToOne
+    @JoinColumn(name = "positionId", referencedColumnName = "id")
+    private Position position;
 
     @Column(name = "modifiedAt")
     private LocalDateTime modifiedAt;

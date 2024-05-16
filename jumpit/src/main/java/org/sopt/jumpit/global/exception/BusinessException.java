@@ -1,6 +1,7 @@
-package org.sopt.jumpit.exception;
+package org.sopt.jumpit.global.exception;
 
 import lombok.Getter;
+import org.sopt.jumpit.global.common.dto.message.ErrorMessage;
 
 @Getter
 public class BusinessException extends RuntimeException {
