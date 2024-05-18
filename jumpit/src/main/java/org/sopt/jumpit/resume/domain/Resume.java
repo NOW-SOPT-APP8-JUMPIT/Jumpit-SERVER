@@ -43,4 +43,10 @@ public class Resume {
                 .owner(owner)
                 .build();
     }
+
+    public void updateIsPrivate(
+            Boolean isPrivate
+    ) {
+        this.isPrivate = isPrivate;
+    }
 }
