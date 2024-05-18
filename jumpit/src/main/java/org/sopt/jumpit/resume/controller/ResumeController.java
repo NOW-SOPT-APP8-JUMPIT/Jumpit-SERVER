@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.sopt.jumpit.global.common.dto.SuccessResponse;
 import org.sopt.jumpit.resume.domain.Resume;
 import org.sopt.jumpit.resume.dto.ResumeCreateRequest;
+import org.sopt.jumpit.resume.dto.ResumePrivateRequest;
+import org.sopt.jumpit.resume.dto.ResumeSearchResponse;
 import org.sopt.jumpit.resume.service.ResumeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +29,15 @@ public class ResumeController {
     @GetMapping("/{userId}")
     public ResponseEntity<Resume> findResumeById(@PathVariable Long userId) {
         return ResponseEntity.ok(resumeService.findResumeById(userId));
+    }
+
+    @PatchMapping("/{resumeId}")
+    public ResponseEntity<SuccessResponse> updateIsPrivate(
+            @PathVariable Long resumeId,
+            @RequestBody ResumePrivateRequest resumePrivateRequest
+    ) {
+        resumeService.updateResumePrivate(resumeId, resumePrivateRequest);
+        return ResponseEntity.ok()
+                .build();
     }
 }
