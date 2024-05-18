@@ -1,10 +1,12 @@
 package org.sopt.jumpit.relationship.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.sopt.jumpit.category.domain.Category;
 import org.sopt.jumpit.position.domain.Position;
 
 @Entity
+@Getter
 @Table(name = "Positions_Categories")
 public class PositionCategory {
     @Id
