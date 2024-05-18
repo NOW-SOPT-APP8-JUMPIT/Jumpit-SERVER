@@ -22,7 +22,7 @@ public class ResumeService {
             ResumeCreateRequest resumeCreateRequest
     ) {
         User findUser = userRepository.findById(resumeCreateRequest.userId()).orElseThrow(
-                () -> new BusinessException(ErrorMessage.SEARCH_FAILED)
+                () -> new BusinessException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
         Resume resume = Resume.create(findUser, resumeCreateRequest.title());
         resumeRepository.save(resume);
