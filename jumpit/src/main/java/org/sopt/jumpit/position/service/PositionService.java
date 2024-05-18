@@ -23,14 +23,36 @@ public class PositionService {
 
     public List<PartialPositionFindResponse> findPositionsByKeyword(String keyword) {
         return positionRepository.findPositionsByTitleContaining(keyword.trim())
+    public PositionsFindResponse findFilteredPositionsByKeyword(String keyword, List<Long> categories) {
+        // PositionCategory에서 category 넣고 position id값 List에 저장
+        List<Long> postionInCategories = new ArrayList<>();
+        for (Long categoryNumber : categories) {
+            List<PositionCategory> pc = positionCategoryService.findPositionByCategory(categoryNumber);
+            postionInCategories.addAll(pc
+                    .stream()
+                    .map(p -> {
+                        return p.getPosition().getId();
+                    }).collect(Collectors.toList())
+            );
+        }
+        // Position에서 keyword로 검색
+        return PositionsFindResponse.of(positionRepository.findPositionsByTitleContaining(keyword.trim())
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.SEARCH_FAILED))
                 .stream()
+                // 카테고리에 맞는 포지션들만 filtering
                 .map(position -> {
-                    List<Skill> skills = skillService.findByOwnerId(position.getId());
-                    return PartialPositionFindResponse.of(position, skills, position.getCompany());
+                    if(postionInCategories.contains(position.getId())) {
+                        return PartialPositionFindResponse.of(
+                                position,
+                                SkillResponse.ofList(skillService.findByOwnerId(position.getId())),
+                                position.getCompany());
+                    }
+                    return null;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+        );
     }
 
+        );
 
 }
