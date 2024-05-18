@@ -6,6 +6,8 @@ build/
 !**/src/test/**/build/
 *.yaml
 
+*.yaml
+
 ### STS ###
 .apt_generated
 .classpath
