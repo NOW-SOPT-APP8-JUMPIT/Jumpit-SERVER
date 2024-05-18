@@ -24,7 +24,7 @@ public class ResumeService {
         User findUser = userRepository.findById(resumeCreateRequest.userId()).orElseThrow(
                 () -> new BusinessException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
-        Resume resume = Resume.create(findUser, resumeCreateRequest.title());
+        Resume resume = Resume.create(findUser, "내 이력서");
         resumeRepository.save(resume);
     }
 }
