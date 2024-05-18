@@ -6,6 +6,7 @@ import org.sopt.jumpit.global.common.dto.message.ErrorMessage;
 import org.sopt.jumpit.global.exception.BusinessException;
 import org.sopt.jumpit.resume.domain.Resume;
 import org.sopt.jumpit.resume.dto.ResumeCreateRequest;
+import org.sopt.jumpit.resume.dto.ResumePrivateRequest;
 import org.sopt.jumpit.resume.dto.ResumeSearchResponse;
 import org.sopt.jumpit.resume.repository.ResumeRepository;
 import org.sopt.jumpit.user.domain.User;
@@ -33,5 +34,16 @@ public class ResumeService {
         return resumeRepository.findById(resumeId).orElseThrow(
                 () -> new BusinessException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
+    }
+
+    @Transactional
+    public void updateResumePrivate(
+            Long resumeId,
+            ResumePrivateRequest resumePrivateRequest
+    ) {
+        Resume resume = resumeRepository.findById(resumeId).orElseThrow(
+                () -> new BusinessException(ErrorMessage.RESUME_NOT_FOUND_BY_ID_EXCEPTION)
+        );
+        resume.updateIsPrivate(resumePrivateRequest.isPrivate());
     }
 }
