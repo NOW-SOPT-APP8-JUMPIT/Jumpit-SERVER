@@ -20,7 +20,7 @@ public class Skill {
     @Column(name = "image")
     private String image;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "positionId", referencedColumnName = "id")
     private Position position;
 

@@ -21,7 +21,7 @@ public class Position {
     @Column(name = "contents", columnDefinition = "json")
     private String contents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyId", referencedColumnName = "id")
     private Company company;
 
