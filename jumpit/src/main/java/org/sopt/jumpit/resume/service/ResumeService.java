@@ -6,6 +6,7 @@ import org.sopt.jumpit.global.common.dto.message.ErrorMessage;
 import org.sopt.jumpit.global.exception.BusinessException;
 import org.sopt.jumpit.resume.domain.Resume;
 import org.sopt.jumpit.resume.dto.ResumeCreateRequest;
+import org.sopt.jumpit.resume.dto.ResumeSearchResponse;
 import org.sopt.jumpit.resume.repository.ResumeRepository;
 import org.sopt.jumpit.user.domain.User;
 import org.sopt.jumpit.user.repository.UserRepository;
@@ -26,5 +27,11 @@ public class ResumeService {
         );
         Resume resume = Resume.create(findUser, "내 이력서");
         resumeRepository.save(resume);
+    }
+
+    public Resume findResumeById(Long resumeId) {
+        return resumeRepository.findById(resumeId).orElseThrow(
+                () -> new BusinessException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
+        );
     }
 }
