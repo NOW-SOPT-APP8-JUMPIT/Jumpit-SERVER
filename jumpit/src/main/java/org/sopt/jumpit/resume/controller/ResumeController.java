@@ -37,7 +37,7 @@ public class ResumeController {
             @RequestBody ResumePrivateRequest resumePrivateRequest
     ) {
         resumeService.updateResumePrivate(resumeId, resumePrivateRequest);
-        return ResponseEntity.ok()
+        return ResponseEntity.noContent()
                 .build();
     }
 }
