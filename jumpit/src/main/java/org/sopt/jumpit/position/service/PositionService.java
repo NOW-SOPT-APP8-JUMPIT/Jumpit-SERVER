@@ -6,8 +6,11 @@ import org.sopt.jumpit.global.common.dto.message.ErrorMessage;
 import org.sopt.jumpit.global.exception.NotFoundException;
 import org.sopt.jumpit.position.domain.Position;
 import org.sopt.jumpit.position.dto.PartialPositionFindResponse;
+import org.sopt.jumpit.position.dto.PositionsFindResponse;
 import org.sopt.jumpit.position.repository.PositionRepository;
+import org.sopt.jumpit.relationship.domain.PositionCategory;
 import org.sopt.jumpit.skill.domain.Skill;
+import org.sopt.jumpit.skill.dto.SkillResponse;
 import org.sopt.jumpit.skill.service.SkillService;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +31,9 @@ public class PositionService {
         List<Long> postionInCategories = new ArrayList<>();
         for (Long categoryNumber : categories) {
             List<PositionCategory> pc = positionCategoryService.findPositionByCategory(categoryNumber);
-            postionInCategories.addAll(pc
-                    .stream()
-                    .map(p -> {
-                        return p.getPosition().getId();
-                    }).collect(Collectors.toList())
-            );
+            for (PositionCategory positionCategory : pc) {
+                positionInCategories.add(positionCategory.getPosition().getId());
+            }
         }
         // Position에서 keyword로 검색
         return PositionsFindResponse.of(positionRepository.findPositionsByTitleContaining(keyword.trim())
