@@ -12,7 +12,11 @@ public enum ErrorMessage {
     COMPANY_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] ID에 해당하는 기업이 없습니다."),
     SKILL_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] ID에 해당하는 기술스택이 없습니다."),
     USER_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] ID에 해당하는 유저를 찾을 수 없습니다."),
-    RESUME_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] ID에 해당하는 이력서를 찾을 수 없습니다.")
+    RESUME_NOT_FOUND_BY_ID_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] ID에 해당하는 이력서를 찾을 수 없습니다."),
+    CATEGORIES_NOT_FOUND_BY_POSITION_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] 포지션에 해당하는 카테고리가 없습니다."),
+    POSITION_NOT_FOUND_BY_CATEGORIES_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] 카테고리에 해당하는 포지션이 없습니다."),
+    POSITION_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND.value(), "[ERROR] ID에 해당하는 포지션이 없습니다."),
+    PARSE_EXCEPTION(HttpStatus.BAD_REQUEST.value(), "[ERROR] JSON 파싱에 실패하였습니다.")
     ;
 
     private final int status;

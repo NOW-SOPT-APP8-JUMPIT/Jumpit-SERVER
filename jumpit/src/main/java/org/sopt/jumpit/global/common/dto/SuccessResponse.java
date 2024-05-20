@@ -12,7 +12,7 @@ public record SuccessResponse<T> (
     }
 
     public static <T> SuccessResponse<T> of(SuccessMessage successMessage, T data) {
-        return new SuccessResponse(successMessage.getStatus(), successMessage.getMessage(), data);
+        return new SuccessResponse<T>(successMessage.getStatus(), successMessage.getMessage(), data);
     }
 
 }
