@@ -34,9 +34,9 @@ public class ResumeController {
     @PatchMapping("/resumes/{resumeId}")
     public ResponseEntity<SuccessResponse> updateIsPrivate(
             @PathVariable Long resumeId,
-            @RequestBody ResumePrivateRequest resumePrivateRequest
+            @RequestBody ResumePrivateRequest request
     ) {
-        resumeService.updateResumePrivate(resumeId, resumePrivateRequest);
+        resumeService.updateResumePrivate(resumeId, request);
         return ResponseEntity.noContent()
                 .build();
     }
