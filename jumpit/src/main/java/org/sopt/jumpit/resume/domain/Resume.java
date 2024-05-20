@@ -3,6 +3,7 @@ package org.sopt.jumpit.resume.domain;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.sopt.jumpit.resume.dto.ResumeCreateRequest;
 import org.sopt.jumpit.user.domain.User;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Resume")
 @Getter
+@Setter
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,11 +46,5 @@ public class Resume {
                 .title(title)
                 .owner(owner)
                 .build();
-    }
-
-    public void updateIsPrivate(
-            Boolean isPrivate
-    ) {
-        this.isPrivate = isPrivate;
     }
 }

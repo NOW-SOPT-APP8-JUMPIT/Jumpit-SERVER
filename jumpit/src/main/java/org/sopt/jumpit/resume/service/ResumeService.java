@@ -44,6 +44,6 @@ public class ResumeService {
         Resume resume = resumeRepository.findById(resumeId).orElseThrow(
                 () -> new NotFoundException(ErrorMessage.RESUME_NOT_FOUND_BY_ID_EXCEPTION)
         );
-        resume.updateIsPrivate(resumePrivateRequest.isPrivate());
+        resume.setPrivate(resumePrivateRequest.isPrivate());
     }
 }
