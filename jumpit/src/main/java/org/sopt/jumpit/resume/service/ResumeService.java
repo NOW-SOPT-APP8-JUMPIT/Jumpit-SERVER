@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.sopt.jumpit.global.common.dto.message.ErrorMessage;
 import org.sopt.jumpit.global.exception.BusinessException;
+import org.sopt.jumpit.global.exception.NotFoundException;
 import org.sopt.jumpit.resume.domain.Resume;
 import org.sopt.jumpit.resume.dto.ResumeCreateRequest;
 import org.sopt.jumpit.resume.dto.ResumePrivateRequest;
@@ -24,7 +25,7 @@ public class ResumeService {
             ResumeCreateRequest resumeCreateRequest
     ) {
         User findUser = userRepository.findById(resumeCreateRequest.userId()).orElseThrow(
-                () -> new BusinessException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
+                () -> new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
         Resume resume = Resume.create(findUser, "내 이력서");
         resumeRepository.save(resume);
@@ -32,7 +33,7 @@ public class ResumeService {
 
     public Resume findResumeById(Long resumeId) {
         return resumeRepository.findById(resumeId).orElseThrow(
-                () -> new BusinessException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
+                () -> new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
     }
 
@@ -42,7 +43,7 @@ public class ResumeService {
             ResumePrivateRequest resumePrivateRequest
     ) {
         Resume resume = resumeRepository.findById(resumeId).orElseThrow(
-                () -> new BusinessException(ErrorMessage.RESUME_NOT_FOUND_BY_ID_EXCEPTION)
+                () -> new NotFoundException(ErrorMessage.RESUME_NOT_FOUND_BY_ID_EXCEPTION)
         );
         resume.updateIsPrivate(resumePrivateRequest.isPrivate());
     }
