@@ -1,11 +1,13 @@
 package org.sopt.jumpit.skill.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.sopt.jumpit.position.domain.Position;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @Table(name = "Skills")
 public class Skill {
     @Id
@@ -18,7 +20,7 @@ public class Skill {
     @Column(name = "image")
     private String image;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "positionId", referencedColumnName = "id")
     private Position position;
 
