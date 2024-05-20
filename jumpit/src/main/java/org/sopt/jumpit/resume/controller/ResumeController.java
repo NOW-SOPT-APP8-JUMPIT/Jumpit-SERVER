@@ -12,12 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/resumes")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ResumeController {
     private final ResumeService resumeService;
 
-    @PostMapping
+    @PostMapping("/resumes")
     public ResponseEntity<SuccessResponse> createResume (
             @RequestBody ResumeCreateRequest resumeCreateRequest
     ) {
@@ -26,12 +26,12 @@ public class ResumeController {
                 .build();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/resumes/{userId}")
     public ResponseEntity<Resume> findResumeById(@PathVariable Long userId) {
         return ResponseEntity.ok(resumeService.findResumeById(userId));
     }
 
-    @PatchMapping("/{resumeId}")
+    @PatchMapping("/resumes/{resumeId}")
     public ResponseEntity<SuccessResponse> updateIsPrivate(
             @PathVariable Long resumeId,
             @RequestBody ResumePrivateRequest resumePrivateRequest
