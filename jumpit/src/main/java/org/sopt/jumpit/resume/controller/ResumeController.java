@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/v1/resumes")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ResumeController {
     private final ResumeService resumeService;
 
-    @PostMapping
-    public ResponseEntity<SuccessResponse> createResume (
+    @PostMapping("/resumes")
+    public ResponseEntity<SuccessResponse<Void>> createResume (
             @RequestBody ResumeCreateRequest resumeCreateRequest
     ) {
         resumeService.createResume(resumeCreateRequest);
