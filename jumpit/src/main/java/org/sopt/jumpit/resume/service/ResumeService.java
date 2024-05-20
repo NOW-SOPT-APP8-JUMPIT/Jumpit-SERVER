@@ -19,7 +19,7 @@ public class ResumeService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createResume(
+    public Long createResume(
             ResumeCreateRequest resumeCreateRequest
     ) {
         User findUser = userRepository.findById(resumeCreateRequest.userId()).orElseThrow(
@@ -27,6 +27,7 @@ public class ResumeService {
         );
         Resume resume = Resume.create(findUser, "내 이력서");
         resumeRepository.save(resume);
+        return resume.getId();
     }
 
     public Resume findResumeById(Long resumeId) {

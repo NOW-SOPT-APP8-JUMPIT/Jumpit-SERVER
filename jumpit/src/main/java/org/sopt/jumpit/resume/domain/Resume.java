@@ -2,6 +2,7 @@ package org.sopt.jumpit.resume.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import org.sopt.jumpit.resume.dto.ResumeCreateRequest;
 import org.sopt.jumpit.user.domain.User;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Resume")
+@Getter
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
