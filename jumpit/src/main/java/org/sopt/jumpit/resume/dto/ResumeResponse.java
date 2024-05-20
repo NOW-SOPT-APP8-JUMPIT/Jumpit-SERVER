@@ -2,7 +2,7 @@ package org.sopt.jumpit.resume.dto;
 
 import java.time.LocalDateTime;
 
-public record Resume(
+public record ResumeResponse(
         Long id,
         String title,
         Boolean isPrivate,

@@ -1,8 +1,11 @@
 package org.sopt.jumpit.resume.dto;
 
+import java.util.List;
+
+
 public record ResumeSearchResponse(
         Long userId,
-        Resume resume
+        List<ResumeResponse> resume
 ) {
 
 
