@@ -1,5 +1,6 @@
 package org.sopt.jumpit.global.common;
 
+import org.json.simple.parser.ParseException;
 import org.sopt.jumpit.global.common.dto.ErrorResponse;
 import org.sopt.jumpit.global.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.from(e.getMessage()));
+    }
+
+    @ExceptionHandler(ParseException.class)
+    protected ResponseEntity<ErrorResponse> handleParseException(ParseException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ErrorResponse.from(e.getMessage()));
     }
 
