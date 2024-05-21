@@ -1,6 +1,7 @@
 package org.sopt.jumpit.position.dto;
 
 import org.sopt.jumpit.company.domain.Company;
+import org.sopt.jumpit.company.dto.CompanyResponse;
 import org.sopt.jumpit.position.domain.Position;
 import org.sopt.jumpit.skill.domain.Skill;
 import org.sopt.jumpit.skill.dto.SkillResponse;
@@ -12,7 +13,7 @@ public record PartialPositionFindResponse(
         Long id,
         String title,
         List<SkillResponse> skills,
-        Company company
+        CompanyResponse companyResponse
 
 ) {
     public static PartialPositionFindResponse of(final Position position,
@@ -23,7 +24,7 @@ public record PartialPositionFindResponse(
                 position.getId(),
                 position.getTitle(),
                 skills,
-                company
+                CompanyResponse.of(company)
         );
     }
 
