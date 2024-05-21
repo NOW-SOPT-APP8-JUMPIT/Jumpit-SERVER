@@ -34,12 +34,10 @@ public class PositionService {
         return PositionsFindResponse.of(positionRepository.findPositionsByTitleContaining(keyword.trim())
                 .orElseThrow(() -> new NotFoundException(ErrorMessage.SEARCH_FAILED))
                 .stream()
-                .map(position -> {
-                    return PartialPositionFindResponse.of(
-                            position,
-                            SkillResponse.ofList(skillService.findByOwnerId(position.getId())),
-                            position.getCompany());
-                })
+                .map(position -> PartialPositionFindResponse.of(
+                        position,
+                        SkillResponse.ofList(skillService.findByOwnerId(position.getId())),
+                        position.getCompany()))
                 .collect(Collectors.toList()));
     }
 

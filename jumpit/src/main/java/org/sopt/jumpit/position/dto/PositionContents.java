@@ -1,7 +1,5 @@
 package org.sopt.jumpit.position.dto;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 public record PositionContents(
     Long id,
     String title,
