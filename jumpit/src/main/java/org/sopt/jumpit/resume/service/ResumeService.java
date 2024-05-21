@@ -24,32 +24,24 @@ public class ResumeService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long createResume(
+    public String createResume(
             ResumeCreateRequest resumeCreateRequest
     ) {
         User findUser = userRepository.findById(resumeCreateRequest.userId()).orElseThrow(
                 () -> new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
-        Resume resume = Resume.create(findUser, "내 이력서");
-        resumeRepository.save(resume);
-        return resume.getId();
+        return resumeRepository.save(Resume.create(findUser, "내 이력서")).getId().toString();
     }
 
     public ResumeSearchResponse findResumeById(Long userId) {
-        List<ResumeResponse> resumes = resumeRepository.findAll().stream()
-                .map(
-                        resume -> new ResumeResponse(
-                                resume.getId(),
-                                resume.getTitle(),
-                                resume.isPrivate(),
-                                resume.getCreatedAt(),
-                                resume.getModifiedAt()
-                        )
-                ).collect(Collectors.toList());
+        List<ResumeResponse> resumes = resumeRepository.findByOwnerId(userId)
+                .stream()
+                .map(ResumeResponse::of)
+                .collect(Collectors.toList());
         userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ErrorMessage.USER_NOT_FOUND_BY_ID_EXCEPTION)
         );
-        return new ResumeSearchResponse(userId, resumes);
+        return ResumeSearchResponse.of(userId, resumes);
     }
 
     @Transactional

@@ -22,21 +22,19 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @PostMapping("/resumes")
-    public ResponseEntity<SuccessResponse> createResume (
+    public ResponseEntity<SuccessResponse<Void>> createResume (
             @RequestBody ResumeCreateRequest resumeCreateRequest
     ) {
-        Long resumeId = resumeService.createResume(resumeCreateRequest);
-        URI location = URI.create("/api/v1/resumes/" + resumeId);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .location(location)
+                .header("Location", resumeService.createResume(resumeCreateRequest))
                 .body(SuccessResponse.of(SuccessMessage.RESUME_CREATED_COMPLETED_SUCCESS));
     }
 
     @GetMapping("/resumes/{userId}")
     public ResponseEntity<SuccessResponse<ResumeSearchResponse>> findResumeById(@PathVariable Long userId) {
-        ResumeSearchResponse resumeSearchResponse = resumeService.findResumeById(userId);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(SuccessResponse.of(SuccessMessage.RESUME_SEARCH_COMPLETED_SUCCESS, resumeSearchResponse));
+                .body(SuccessResponse.of(SuccessMessage.RESUME_SEARCH_COMPLETED_SUCCESS,
+                        resumeService.findResumeById(userId)));
     }
 
     @PatchMapping("/resumes/{resumeId}")
