@@ -38,12 +38,12 @@ public class ResumeController {
     }
 
     @PatchMapping("/resumes/{resumeId}")
-    public ResponseEntity<SuccessResponse> updateIsPrivate(
+    public ResponseEntity<SuccessResponse<Void>> updateIsPrivate(
             @PathVariable Long resumeId,
             @RequestBody ResumePrivateRequest request
     ) {
         resumeService.updateResumePrivate(resumeId, request);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(SuccessResponse.of(SuccessMessage.RESUME_PRIVATE_CHANGE_COMPLETED_SUCCESS));
     }
 }
