@@ -8,9 +8,10 @@ import org.sopt.jumpit.skill.dto.SkillResponse;
 import java.util.List;
 
 public record PositionDetailResponse(
-        @JsonProperty("positions")
+        @JsonProperty("position")
         PositionContents positionContents,
         List<SkillResponse> skills,
+        @JsonProperty("company")
         CompanyResponse companyResponse
 ) {
 

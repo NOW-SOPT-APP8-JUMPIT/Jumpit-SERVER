@@ -1,5 +1,6 @@
 package org.sopt.jumpit.position.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.sopt.jumpit.company.domain.Company;
 import org.sopt.jumpit.company.dto.CompanyResponse;
 import org.sopt.jumpit.position.domain.Position;
@@ -13,6 +14,7 @@ public record PartialPositionFindResponse(
         Long id,
         String title,
         List<SkillResponse> skills,
+        @JsonProperty("company")
         CompanyResponse companyResponse
 
 ) {
