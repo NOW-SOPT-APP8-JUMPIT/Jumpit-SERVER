@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 public record ResumeResponse(
         Long id,
         String title,
-        Boolean isPrivate,
-        LocalDateTime createdAt,
-        LocalDateTime modifiedAt
+        Boolean isPrivate
 ) {
 
     public static ResumeResponse of(Resume resume) {
@@ -21,8 +19,6 @@ public record ResumeResponse(
                 .id(resume.getId())
                 .title(resume.getTitle())
                 .isPrivate(resume.isPrivate())
-                .createdAt(resume.getCreatedAt())
-                .modifiedAt(resume.getModifiedAt())
                 .build();
 
     }
