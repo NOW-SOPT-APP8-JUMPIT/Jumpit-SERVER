@@ -10,6 +10,7 @@ import org.sopt.jumpit.company.domain.Company;
 import org.sopt.jumpit.global.common.dto.message.ErrorMessage;
 import org.sopt.jumpit.global.exception.NotFoundException;
 import org.sopt.jumpit.position.domain.Position;
+import org.sopt.jumpit.position.dto.PositionDetailResponse;
 import org.sopt.jumpit.position.dto.PositionsFindResponse;
 import org.sopt.jumpit.position.repository.PositionRepository;
 import org.sopt.jumpit.relationship.domain.PositionCategory;
@@ -178,6 +179,59 @@ public class PositionServiceTest {
         // Verify: PositionRepository의 findPositionsByTitleContaining 메서드가 호출됨을 확인
         verify(positionRepository).findPositionsByTitleContaining(keyword.trim());
         verifyNoInteractions(skillService); // 검색 결과가 없으므로 SkillService는 호출되지 않음
+    }
+
+    @Test
+    @DisplayName("유효한 포지션 ID로 상세 정보 조회 성공")
+    void testFindPositionDetail_Success() {
+        // Given: 유효한 포지션 ID 설정 및 필요한 목 객체 준비
+        Long validPositionId = 1L;
+        Position mockPosition = mock(Position.class);
+        when(mockPosition.getId()).thenReturn(validPositionId);
+        when(mockPosition.getTitle()).thenReturn("[토스뱅크] Frontend Developer");
+        when(mockPosition.getCompany()).thenReturn(mockCompany);
+
+        String jsonContents = """
+        {
+            "career": "2 ~ 20년",
+            "education": "무관 (졸업예정자 가능)",
+            "deadline": "상시",
+            "location": "서울 강남구 테헤란로 131, 13층",
+            "responsibilities": "[합류하게 될 팀에 대해 알려드려요]₩n 토스뱅크에서는 하나의 스쿼드 안에 1~3명의 Frontend Developer가 소속되어 있으며, 서비스 개발을 넘어 역량적 성장을 함께해요.",
+            "qualifications": "[이런 분과 함께하고 싶어요]",
+            "preferred": "[합류하면 담당할 서비스를 소개해 드려요]",
+            "benefits": "1. 자율과 효율의 근무 환경을 제공합니다.",
+            "notice": "[토스뱅크가 사용하는 기술]"
+        }
+        """;
+        when(mockPosition.getContents()).thenReturn(jsonContents);
+        when(positionRepository.findById(validPositionId)).thenReturn(Optional.of(mockPosition));
+
+        // When: 상세 정보 조회 메서드 호출
+        PositionDetailResponse result = positionService.findPositionDetail(validPositionId);
+
+        // Then: 반환된 상세 정보가 null이 아니며, 포지션 ID와 제목이 기대하는 값과 일치하는지 확인
+        assertThat(result).isNotNull();
+        assertThat(result.positionContents().title()).isEqualTo("[토스뱅크] Frontend Developer");
+
+        // Verify: findById 메서드가 올바르게 호출되었는지 검증
+        verify(positionRepository).findById(validPositionId);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 포지션 ID로 조회 시 NotFoundException 발생")
+    void testFindPositionDetail_NotFound() {
+        // Given: 유효하지 않은 포지션 ID 설정
+        Long invalidPositionId = 999L;
+        when(positionRepository.findById(invalidPositionId)).thenReturn(Optional.empty());
+
+        // When & Then: 상세 정보 조회 시 NotFoundException 예외 발생 확인
+        assertThatThrownBy(() -> positionService.findPositionDetail(invalidPositionId))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessageContaining(ErrorMessage.POSITION_NOT_FOUND_EXCEPTION.getMessage());
+
+        // Verify: findById 메서드가 올바르게 호출되었는지 검증
+        verify(positionRepository).findById(invalidPositionId);
     }
 
 }
